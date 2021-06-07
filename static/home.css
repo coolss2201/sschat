@@ -1,0 +1,219 @@
+body,html {
+  overflow-x: hidden;
+}
+.side {
+  position: fixed;
+  width: 30vw;
+  z-index: 2;
+}
+.main {
+  margin-left: 30vw;
+  width: 70vw;
+  height: 100vh;
+  overflow-y: scroll;
+  position: relative;
+  
+}
+.fa-arrow-left{
+  display: none;
+}
+nav {
+  background-color: teal;
+  display: flex;
+  align-items: center;
+  color: white; 
+  border-right: 2px solid black;
+  position: fixed;
+  height: 8vh;
+  box-shadow: 0 0 7px black;
+  padding-left: 10px;
+}
+.logo{
+  width: fit-content;
+  margin:auto;
+}
+.siden{
+  width: 30vw;
+}
+.mainn{
+  width: 70vw;
+}
+img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 5px 5px;
+}
+.search{
+  margin-top: 8vh;
+  background-color:#f0f0f0 ;
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+input{
+  outline: none;
+  border: none;
+  padding: 6px;
+  padding-left: 20px;
+  border-radius: 15px 0px 0px 15px;
+  width: 20vw;
+  height: 4.2vh;
+  font-size: 15px;
+}
+.fa-search{
+  background-color: white;
+  width: 2vw;
+  height: 4.2vh;
+  cursor: pointer;
+  font-size: 18px;
+  padding-top: 5px;
+  color: #919191;
+  border-radius: 0px 15px 15px 0px;
+}
+.users {
+  background-color: white;
+  height: 100vh;
+}
+
+.user {
+  color: black;
+  font-size: large;
+}
+a:hover{
+  text-decoration: none;
+  color: black;
+}
+a{
+  padding: 10px 0;
+  padding-right: 5vw;
+}
+.chats {
+  font-family: Segoe UI,Helvetica Neue,Helvetica,Lucida Grande,Arial,Ubuntu,Cantarell,Fira Sans,sans-serif;
+  margin-top: 9vh;
+  margin-bottom: 3.5em;
+  display: flex;
+  flex-direction: column-reverse;
+  font-size: 18px;
+}
+.main::after {
+  content: "";
+  background: url("https://theabbie.github.io/blog/assets/official-whatsapp-background-image.jpg");
+  background-color: #919191;
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  z-index: -1;   
+  
+}
+
+.mychat {
+  
+  margin-left: auto;
+  margin-right: 0;
+  background-color: #dcf8c6;
+  border-radius: 7px 7px 0 7px;
+  width: fit-content;
+  padding: 3px 10px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  max-width: 45vw;
+  overflow-wrap: break-word;
+  border-bottom: 1px solid #919191;
+}
+.fchat {
+  background-color: white;
+  width: fit-content;
+  padding: 3px 10px;
+  border-radius: 7px 7px 7px 0%;
+  margin: 7px 0px;
+  max-width: 45vw;
+  overflow-wrap: break-word;
+  border-bottom: 1px solid #919191;
+}
+textarea.md-textarea-scroll {
+  overflow-y: auto;
+}
+.send-chats {
+  position: fixed;
+  bottom: 0;
+  background-color: #f0f0f0;
+  display: flex;
+  width: 70vw;
+  align-items: center;
+  box-shadow: 0 0 7px black;
+}
+textarea.md-textarea {
+  resize: none;
+  width: 63vw;
+  border-radius: 30px;
+  margin:1.5vh 1vw 1.5vh 2vw;
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  font-size: large;
+}
+.fa-send {
+  cursor: pointer;
+  color: blue;
+  transform: rotate(60deg);
+}
+
+.modal-image{
+  width: 40vw;
+  height:70vh;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.fa-trash,.fa-sign-out{
+  margin-right: 2vw;
+  margin-left: auto;
+  font-size: 25px;
+  color: red;
+  cursor: pointer;
+}
+.fa-sign-out{
+  color: white ;
+}
+
+@media (max-width:700px) {
+  .side,.siden{
+    width: 100vw;
+  }
+.main,.mainn,.send-chats{
+  margin-left: 0;
+  width: 100vw;
+}
+textarea.md-textarea {
+  width: 80vw;
+  margin-right: 3vw;
+}
+.modal-content{
+  margin-top: 20%;
+  width: fit-content;
+  height: fit-content;
+}
+.modal-image{
+  width: 95vw;
+  height: 40vh;
+}
+input{
+  padding-left: 20px;
+  border-radius: 15px 0px 0px 15px;
+  width: 70vw;
+}
+.fa-search{
+  width: 8vw;
+}
+.fa-arrow-left{
+  display: block;
+  margin-right: 8px;
+}
+}

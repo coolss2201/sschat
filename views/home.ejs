@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- <script>
+        window.history.forward()
+      </script> -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/home.css">
+    <script defer src="/socket.io/socket.io.js"></script>
+    <script defer src="/home.js"></script>
+</head>
+<body>
+    <div>
+        <div class="side">
+            <nav class="siden">
+                <a href="/profile/<%= id %>"><img id="myimg"  src="/images/<%= name  %>" title="<%= id %>"></a>
+                <div class="logo"><i>SS Chat</i></div>
+                <i class="fa fa-sign-out" title="log out"></i>
+            </nav>
+            <div class="search">
+                <button class="btn btn-secondary" style="margin-right: 5px;border-radius: 50%;">All</button>
+                <input type="text" class="srch" placeholder="Search for friends">
+                <i type="button" class="fa fa-search"></i>
+               
+            </div>
+            <div class="users">
+                <table class="table table-hover">
+                    <tbody>
+                <% for(let i=0;i<users.length;i++){if(users[i].id!=id){ %> 
+                    <tr><td title="<%= users[i].name.toString().toLowerCase().split(" ").join("_") %>" id="<%= users[i].id %>">
+                        <img src="/images/<%= users[i].dp %>" title="<%= users[i].id %>" alt="Image">
+                        <a href="/user/<%= id %>/<%= users[i].id %>" title="<%= users[i].id %>" class="user"> <%= users[i].name %> </a>
+                    </td></tr>
+                <%} } %> 
+        </tbody>
+    </table>
+            </div>
+        </div>
+        <div class="main">
+            <% if(chat){ %> 
+            <nav class="mainn">
+                <!-- <form action="/user" method="post">
+                    <button class="btn btn-default" style="padding:0;margin: 0;border:0;color: white;text-decoration: none;width: fit-content;" type="submit"><i style="font-size: 24px;" class="fa fa-arrow-left"></i></button>
+                  </form> -->
+                <i style="font-size: 24px;" class="fa fa-arrow-left"></i>
+                <img src="/images/<%= f.dp %>" alt="Image" data-toggle="modal" data-target="#myModal" type="button" class="fimage" title="<%= f.id %>">
+                <div>
+                <div id="fname"><b><%= f.name %> </b></div>
+                <small title="<%= f.id %>"><%= f.status %></small>
+                </div>
+                <i title="<%= f.id %> <%= id %>" class="fa fa-trash"></i>
+            </nav>
+            <div class="container-fluid chats" id="chats">
+            <% for(let i=0;i<chats.length;i++){ 
+                if(chats[i].id==id){ %>
+                <div class="mychat"><%= chats[i].chat %></div>
+                <%} else {%>
+                <div class="fchat"><%= chats[i].chat %> </div>
+                <% }} %> 
+            </div>
+            <div class="send-chats">
+            <textarea name="msg" id="new" class="md-textarea" placeholder="Type a message" rows="1"></textarea>
+            <i id="send" class="fa fa-send fa-2x"></i>
+            </div>
+           <% } %> 
+        </div>
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog" >
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <img src="" alt="Image" class="modal-image">
+    </div>
+
+    </div>
+   </div>
+</body>
+</html>

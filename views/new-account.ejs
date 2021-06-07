@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Account</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    
+</head>
+<body>
+    <div class="container">
+      <% if(data){  %> 
+        <div style="color: red;">Id already Exist!!!</div>
+        <% } %> 
+        <form action="/created"  method="post">
+        <div class="form-group">
+            <label >Enter Name</label>
+            <input id="name" class="form-control" type="text" name="name" required placeholder="Enter Name" maxlength="15" pattern="^[a-zA-Z_ ]*$" autocomplete="off">
+        </div>
+        <small id="name-msg">
+          Name can be maximum of 15 characters. <br>
+          " " and "_" are allowed. <br>
+          Numbers or special characters are not allowed. <br>
+        </small>
+        <div class="form-group">
+            <label >Create Id</label>
+            <input class="form-control" type="text" id="id" name="id" required placeholder="Enter id" maxlength="10" pattern="^[a-zA-Z1-9_@#$]*$" autocomplete="off">
+        </div>
+        <small id="id-msg">
+          Id must be unique.<br>
+          only '_','@','#' and '$' are allowed. <br>
+        </small>
+        <div class="form-group">
+            <label >Create password</label>
+            <input class="form-control" type="password" id="pass" name="password" required placeholder="Enter Password" autocomplete="off">
+        </div>
+        <button class="btn btn-primary" type="submit">Create New Account</button>
+        </form>
+    </div>
+</body>
+<script>
+  
+  $("#name").focus(()=>{
+    $('#name-msg').css("display","block")
+  })
+  $("#name").mouseleave(()=>{
+    $('#name-msg').css("display","none")
+  })
+  $("#id").focus(()=>{
+    $('#id-msg').css("display","block")
+  })
+  $("#id").mouseleave(()=>{
+    $('#id-msg').css("display","none")
+  })
+</script>
+</html>
+<style>
+  .container{
+    padding: 5vh 2vw;
+    background-color: #f0f0f0;
+  }
+  #name-msg,#id-msg{
+    color: green;
+    display: none;
+  }
+</style>

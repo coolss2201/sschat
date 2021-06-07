@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <!-- <script>
+      window.history.forward()
+    </script> -->
+    
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="/profile.js"></script>
+    <link rel="stylesheet" href="/profile.css" />
+  </head>
+  <body>
+    <div class="nav">
+      <!-- <form action="/user" method="post">
+        <button class="btn btn-default" style="padding:0;margin: 0;border:0;color: white;text-decoration: none;width: fit-content;" type="submit"><i class="fa fa-arrow-left fa-2x"></i></button>
+      </form> -->
+      <i class="fa fa-arrow-left fa-2x"></i>
+      <h3>Profile</h3>
+      <i class="fa fa-trash fa-right fa-2x"></i>
+    </div>
+    <div class="main">
+    <div class="top">
+        <img class="dp" src="/images/<%= user.dp %>" alt="Image" title="<%= user.dp %>" /><br />
+        <form action="/profile/<%= user.id  %>" method="post" enctype="multipart/form-data">
+          <div class="content">
+            <input type="file" name="dp" required />
+            <button class="btn btn-success chng" type="submit">change Dp</button>
+          </div>
+        </form>
+    </div>
+    <div class="name">
+      <p style="color: #00bfa5; font-size: 15px;">Your Name</p>
+      <div class="name-edit">
+      <p style="font-size: 18px;" id="myname"><%= user.name %> </p>
+      <i class="fa fa-pencil" data-toggle="modal" data-target="#myModal"></i>
+    </div>
+    </div>
+    <div class="pictures">
+      <p style="color: #00bfa5; margin-left: 10vw;padding-top: 1vh;font-size: 15px;">Your Pictures</p>
+      <div class="container-fluid">
+        
+      <% for(let i=1;i<user.pictures.length;i++){ %>
+        <img class="images" src="/images/<%= user.pictures[i] %>" alt="Image" onclick="func(event)">
+        <% } %>  
+      </div>
+    </div>
+    </div>
+
+    <div id="dialog" title="Change Dp" style="display: none;text-align: center;">
+      <p>This picture will be set as your dp</p>
+      <button class="btn btn-success yes">YES</button>
+      <button class="btn btn-danger no">NO</button>
+    </div>
+
+    <div id="deleteacc" title="Delete Account" style="display: none;text-align: center;">
+      <p style="color: red;">This account will be permanently deleted!!!</p>
+      <button class="btn btn-success del-yes">YES</button>
+      <button class="btn btn-danger del-no">NO</button>
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog" >
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Change Name</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body" style="background-color:#f0f0f0 ;">
+            <div class="form-content" style="text-align: center;">
+              <br>
+              <input type="text" name="name" id="changed-name" style="border:none;outline: none;padding:7px 0px;" placeholder="type your name">
+              <button class="btn btn-primary" data-dismiss="modal">Change</button>
+            </div>
+            <br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    
+        </div>
+       </div>
+  </body>
+</html>
