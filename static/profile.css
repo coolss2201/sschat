@@ -1,7 +1,7 @@
-body,html{
+body,
+html {
   overflow-y: scroll;
   overflow-x: hidden;
-  
 }
 .nav {
   position: fixed;
@@ -19,7 +19,7 @@ body,html{
 h3 {
   margin: 0;
 }
-i{
+i {
   cursor: pointer;
 }
 .fa-arrow-left {
@@ -45,22 +45,22 @@ i{
   box-shadow: 0px 0px 10px black;
 }
 
-.name{
+.name {
   margin: 2vh 10vw;
 }
-.name-edit{
+.name-edit {
   display: flex;
 }
-.fa-pencil{
-font-size: 22px;
-color: grey;
-margin-right: 0;
-margin-left: auto;
+.fa-pencil {
+  font-size: 22px;
+  color: grey;
+  margin-right: 0;
+  margin-left: auto;
 }
 .pictures {
-  background-color:#f0f0f0 ;
+  background-color: #f0f0f0;
 }
-.container-fluid{
+.container-fluid {
   display: flex;
   overflow-x: auto;
   padding-bottom: 5vh;
@@ -72,26 +72,26 @@ margin-left: auto;
   height: 30vh;
   object-fit: cover;
 }
-.fa-trash{
+.fa-trash {
   margin-right: 5vw;
   margin-left: auto;
 }
 
-@media  (max-width:700px) {
-  .dp{
+@media (max-width: 700px) {
+  .dp {
     height: 200px;
     width: 200px;
   }
-#myModal{
-  top:25vh;
-}
-  .content{
+  #myModal {
+    top: 25vh;
+  }
+  .content {
     width: 70vw;
     display: flex;
     flex-direction: column;
   }
-  .chng{
-margin-top: 2vh;
+  .chng {
+    margin-top: 2vh;
   }
   .images {
     width: 40vw;

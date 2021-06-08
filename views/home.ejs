@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <!-- <script>
+    <script>
         window.history.forward()
-      </script> -->
+      </script>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -63,10 +62,10 @@
         <div class="main">
             <% if(chat){ %> 
             <nav class="mainn">
-                <!-- <form action="/user" method="post">
+                <form action="/user" method="post">
+                     <input type="text" name="id" value="<%= id %>" style="display: none;">
                     <button class="btn btn-default" style="padding:0;margin: 0;border:0;color: white;text-decoration: none;width: fit-content;" type="submit"><i style="font-size: 24px;" class="fa fa-arrow-left"></i></button>
-                  </form> -->
-                <i style="font-size: 24px;" class="fa fa-arrow-left"></i>
+                  </form>
                 <img src="/images/<%= f.dp %>" alt="Image" data-toggle="modal" data-target="#myModal" type="button" class="fimage" title="<%= f.id %>">
                 <div>
                 <div id="fname"><b><%= f.name %> </b></div>
@@ -89,9 +88,17 @@
            <% } %> 
         </div>
     </div>
+    
+    <div id="dialog" title="Account deleted" style="text-align: center;color: red;display: none;">
+      <form action="/user" method="post">
+        <input type="text" name="id" value="<%= id %>" style="display: none;">
+        <p>User has deleted the account!!!press ok</p>
+        <button class="btn btn-primary" type="submit">OK</button>
+      </form>
+    </div>
 
     <div id="myModal" class="modal fade" role="dialog" >
-  <div class="modal-dialog">
+      <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">

@@ -28,7 +28,6 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-    <script src="/login.js"></script>
     <link rel="stylesheet" href="/login.css" />
   </head>
   <body>
@@ -37,6 +36,8 @@
       <br />
       <% if(data){ %>
       <div style="color: red">Wrong Credentials!!!</div>
+      <% } %> <% if(online){ %>
+      <div style="color: red">Account has been logged in somewhere!!!</div>
       <% } %>
       <form action="/user" id="login" method="post">
         <div class="form-group">
@@ -65,6 +66,6 @@
       <a href="/newaccount">Create a new account</a>
       <br />
     </div>
-    <button id="clck" onclick="func()" style="display: none;"></button>
+    <button id="clck" onclick="func()" style="display: none"></button>
   </body>
 </html>

@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const port = process.env.PORT || 4500;
 const path = require("path");
 const multer = require("multer");
+const fs = require("fs");
 const dburl =
   "mongodb+srv://user:user@cluster0.dhnws.mongodb.net/chatdb?retryWrites=true&w=majority";
 
@@ -67,7 +68,7 @@ function compare(a, b) {
 var upload = multer({ storage: Storage }).single("dp");
 
 app.get("/", (req, res) => {
-  res.render("index", { data: false });
+  res.render("index", { data: false, online: false });
 });
 app.get("/newaccount", (req, res) => {
   res.render("new-account", { data: false });
@@ -238,72 +239,46 @@ app.post("/profile/:id", upload, (req, res) => {
         if (err) console.log(err);
         else {
           io.emit("dp-changed", data.id, data.dp);
-          res.redirect(req.params.id)
+          res.redirect(req.params.id);
         }
       }
     );
   });
 });
 
-
-// var uid;
-// var upass;
-// app.post("/user", (req, res) => {
-//   try{
-//   id = req.body.id;
-//   pass=req.body.password;
-//   if(id==undefined){
-//     id=uid;
-//     pass=upass;
-//   }
-//   else{
-//     uid=id;
-//     upass=pass;
-//   }
-//   }
-//   catch(err){
-//     console.log(err)
-//   }
-//   Cred.findOne({ id: id }, (err, data) => {
-//     if (data == null) res.render("index", { data: true });
-//     else {
-//       if (data.pass == pass) {
-//         User.findOne({ id: id }, (err, data) => {
-//           User.find({}, (err, users) => {
-//             res.render("home", {
-//               name: data.dp,
-//               id: id,
-//               users: users.sort(compare),
-//               chats: [],
-//               chat: false,
-//             });
-//           });
-//         });
-//       } else res.render("index", { data: true });
-//     }
-//   });
-// });
-
-
+var creds = {};
 app.post("/user", (req, res) => {
-  id = req.body.id;
-  pass=req.body.password;
+  try {
+    id = req.body.id;
+    pass = req.body.password;
+    if (pass == undefined) {
+      pass = creds[id];
+    } else {
+      creds[id] = pass;
+    }
+  } catch (err) {
+    console.log(err);
+  }
   Cred.findOne({ id: id }, (err, data) => {
-    if (data == null) res.render("index", { data: true });
+    if (data == null) res.render("index", { data: true, online: false });
     else {
       if (data.pass == pass) {
         User.findOne({ id: id }, (err, data) => {
-          User.find({}, (err, users) => {
-            res.render("home", {
-              name: data.dp,
-              id: id,
-              users: users.sort(compare),
-              chats: [],
-              chat: false,
+          if (data.status == "online") {
+            res.render("index", { data: false, online: true });
+          } else {
+            User.find({}, (err, users) => {
+              res.render("home", {
+                name: data.dp,
+                id: id,
+                users: users.sort(compare),
+                chats: [],
+                chat: false,
+              });
             });
-          });
+          }
         });
-      } else res.render("index", { data: true });
+      } else res.render("index", { data: true, online: false });
     }
   });
 });
@@ -328,28 +303,39 @@ app.post("/created", (req, res) => {
         else {
           user.save((err) => {
             if (err) console.log(err);
-            else res.render("index", { data: false });
+            else res.render("index", { data: false, online: false });
           });
         }
       });
     } else {
-      res.render("new-account",{data:true})
+      res.render("new-account", { data: true });
     }
   });
-});
+}); 
 
 app.post("/deleteacc", (req, res) => {
   id = req.body.id;
+  delete creds[id];
   io.emit("user-deleted", id);
-  User.findOneAndDelete({ id: id }, (err) => {
-    Cred.findOneAndDelete({ id: id }, (err) => {
-      User.updateMany(
-        { "messages.id": id },
-        { $pull: { messages: { id: id } } },
-        (err, data) => {
-          res.send("hello");
-        }
+  User.findOne({ id: id }, (err, details) => {
+    if (details.dp != "profile.png") {
+      fs.unlinkSync(path.join(__dirname, "/static/images/" + details.dp));
+    }
+    for (let i = 1; i < details.pictures.length; i++) {
+      fs.unlinkSync(
+        path.join(__dirname, "/static/images/" + details.pictures[i])
       );
+    }
+    User.findOneAndDelete({ id: id }, (err) => {
+      Cred.findOneAndDelete({ id: id }, (err) => {
+        User.updateMany(
+          { "messages.id": id },
+          { $pull: { messages: { id: id } } },
+          (err, data) => {
+            res.send("hello");
+          }
+        );
+      });
     });
   });
 });
@@ -378,6 +364,9 @@ io.on("connection", (socket) => {
   });
   socket.on("send-message", (msg, room) => {
     socket.to(room).emit("message", msg);
+  });
+  socket.on("user-out", (id) => {
+    delete creds[id];
   });
   socket.on("disconnect", () => {
     User.findOneAndUpdate(
