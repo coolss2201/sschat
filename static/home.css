@@ -224,4 +224,7 @@ textarea.md-textarea {
     display: block;
     margin-right: 8px;
   }
+  .fchat,.mychat{
+    max-width: 70vw;
+  }
 }
