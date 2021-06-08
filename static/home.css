@@ -10,7 +10,7 @@ html {
 .main {
   margin-left: 30vw;
   width: 70vw;
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
   position: relative;
 }
@@ -24,7 +24,7 @@ nav {
   color: white;
   border-right: 2px solid black;
   position: fixed;
-  height: 8vh;
+  height: 60px;
   box-shadow: 0 0 7px black;
   padding-left: 10px;
 }
@@ -46,9 +46,9 @@ img {
   margin: 5px 5px;
 }
 .search {
-  margin-top: 8vh;
+  margin-top: 60px;
   background-color: #f0f0f0;
-  height: 7vh;
+  height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,16 +60,16 @@ input {
   padding-left: 20px;
   border-radius: 15px 0px 0px 15px;
   width: 20vw;
-  height: 4.2vh;
+  height: 35px;
   font-size: 15px;
 }
 .fa-search {
   background-color: white;
   width: 2vw;
-  height: 4.2vh;
+  height: 35px;
   cursor: pointer;
   font-size: 18px;
-  padding-top: 5px;
+  padding-top: 7px;
   color: #919191;
   border-radius: 0px 15px 15px 0px;
 }
@@ -186,12 +186,6 @@ textarea.md-textarea {
 }
 
 @media (max-width: 700px) {
-  .nav{
-    height: 60px;
-  }
-  .search{
-    margin-top: 60px;
-  }
   .chats{
     margin-top: 65px;
   }
