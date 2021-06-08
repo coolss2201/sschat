@@ -32,7 +32,7 @@ $(() => {
   });
   $(".del-yes").on("click", () => {
     $.post(root+"deleteacc", { id: id }, (data) => {
-      window.location.assign("http://localhost:4500");
+      window.location.assign(root);
     });
   });
 });

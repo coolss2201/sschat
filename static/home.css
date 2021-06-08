@@ -186,6 +186,15 @@ textarea.md-textarea {
 }
 
 @media (max-width: 700px) {
+  .nav{
+    height: 60px;
+  }
+  .search{
+    margin-top: 60px;
+  }
+  .chats{
+    margin-top: 65px;
+  }
   .side,
   .siden {
     width: 100vw;
