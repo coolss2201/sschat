@@ -10,6 +10,8 @@ const port = process.env.PORT || 4500;
 const path = require("path");
 const multer = require("multer");
 const fs = require("fs");
+const sharp = require("sharp");
+const { type } = require("os");
 const dburl =
   "mongodb+srv://user:user@cluster0.dhnws.mongodb.net/chatdb?retryWrites=true&w=majority";
 
@@ -48,10 +50,7 @@ var User = mongoose.model("User", {
 var Storage = multer.diskStorage({
   destination: "./static/images",
   filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-    );
+    cb(null, file.fieldname + "_" + Date.now() + ".jpeg");
   },
 });
 
@@ -229,11 +228,27 @@ app.post("/change-dp", (req, res) => {
 
 app.post("/profile/:id", upload, (req, res) => {
   var name = req.file.filename;
+  const { filename: image } = req.file;
+
+  sharp(req.file.path)
+    .rotate()
+    .resize(200, 200)
+    .jpeg({
+      quality: 90,
+      chromaSubsampling: "4:4:4",
+    })
+    .toFile(path.resolve(req.file.destination, "new" + name), (err, data) => {
+      if (err) console.log(err);
+      else {
+        fs.unlinkSync(req.file.path);
+      }
+    });
+
   User.findOne({ id: req.params.id }, (err, user) => {
     var dp = user.dp;
     User.findOneAndUpdate(
       { id: req.params.id },
-      { $push: { pictures: dp }, dp: name },
+      { $push: { pictures: dp }, dp: "new" + name },
       { new: true },
       (err, data) => {
         if (err) console.log(err);
@@ -311,7 +326,7 @@ app.post("/created", (req, res) => {
       res.render("new-account", { data: true });
     }
   });
-}); 
+});
 
 app.post("/deleteacc", (req, res) => {
   id = req.body.id;
